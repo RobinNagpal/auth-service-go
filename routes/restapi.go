@@ -4,14 +4,14 @@ import "net/http"
 
 func Signup(w http.ResponseWriter, r *http.Request) {
 	var command signupCommand
-	error := parseCommand(w, r, &command); if error != nil {
+	error := validateAndParse(w, r, &command); if error != nil {
 
 	}
 }
 
 func Login(w http.ResponseWriter, r *http.Request) {
 	var command loginCommand
-	parseCommand(w, r, &command)
+	validateAndParse(w, r, &command)
 }
 
 func GetUserInfo(http.ResponseWriter, *http.Request) {
