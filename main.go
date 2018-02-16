@@ -4,57 +4,20 @@ import (
 	"log"
 	"net/http"
 	"github.com/gorilla/mux"
+	"github.com/RobinNagpal/auth-service-go/routes"
 )
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/auth/signup", signup).Methods("POST")
-	router.HandleFunc("/auth/login", login).Methods("POST")
-	router.HandleFunc("/auth/user", getUserInfo).Methods("GET")
-	router.HandleFunc("/auth/forgot-password", forgotPassword).Methods("POST")
-	router.HandleFunc("/auth/reset-password", resetPassword).Methods("POST")
-	router.HandleFunc("/auth/enableTwoFactAuth", enableTwoFactAuth).Methods("PUT")
-	router.HandleFunc("/auth/facebook-login", facebookLogin).Methods("POST")
-	router.HandleFunc("/auth/google-login", googleLogin).Methods("POST")
-	router.HandleFunc("/auth/qr-code", getQRCode).Methods("GET")
+	router.HandleFunc("/auth/signup", routes.Signup).Methods("POST")
+	router.HandleFunc("/auth/login", routes.Login).Methods("POST")
+	router.HandleFunc("/auth/user", routes.GetUserInfo).Methods("GET")
+	router.HandleFunc("/auth/forgot-password", routes.ForgotPassword).Methods("POST")
+	router.HandleFunc("/auth/reset-password", routes.ResetPassword).Methods("POST")
+	router.HandleFunc("/auth/enableTwoFactAuth", routes.EnableTwoFactAuth).Methods("PUT")
+	router.HandleFunc("/auth/facebook-login", routes.FacebookLogin).Methods("POST")
+	router.HandleFunc("/auth/google-login", routes.GoogleLogin).Methods("POST")
+	router.HandleFunc("/auth/qr-code", routes.GetQRCode).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8000", router))
-}
-
-func signup(http.ResponseWriter, *http.Request) {
-
-}
-
-func login(http.ResponseWriter, *http.Request) {
-
-}
-
-func getUserInfo(http.ResponseWriter, *http.Request) {
-
-}
-
-
-func forgotPassword(http.ResponseWriter, *http.Request) {
-
-}
-
-func resetPassword(http.ResponseWriter, *http.Request) {
-
-}
-
-
-func enableTwoFactAuth(http.ResponseWriter, *http.Request) {
-
-}
-
-func facebookLogin(http.ResponseWriter, *http.Request) {
-
-}
-
-func googleLogin(http.ResponseWriter, *http.Request) {
-
-}
-
-func getQRCode(http.ResponseWriter, *http.Request) {
-
 }
