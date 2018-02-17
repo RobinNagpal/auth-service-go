@@ -23,8 +23,32 @@ func TestSignup(t *testing.T) {
 	Signup(res, req)
 
 	body := res.Body.String()
-	fmt.Println("#############", res.Body, "#############",)
-	if body != "Hello, world" {
-		t.Error("Fail! It should not use the default, it should see Chris!")
+
+	apiError := BadRequestError{}
+	json.NewDecoder(bytes.NewBuffer([]byte(body))).Decode(&apiError)
+
+	if apiError.Code != "INVALID_INPUT" {
+		t.Error("Not Valid Error Code")
 	}
+	if len(apiError.Details) != 3 {
+		t.Error("Not Valid number of field errors")
+	}
+
+	emailError := FieldError{
+		FieldName: "email",
+		Code:      "INVALID_EMAIL",
+	}
+	if apiError.Details[0] != emailError {
+		t.Error("Not valid field email error")
+	}
+
+	dobError := FieldError{
+		FieldName: "dateOfBirth",
+		Code:      "REQUIRED_FIELD",
+	}
+
+	if apiError.Details[1] != dobError {
+		t.Error("Not valid date of birth field error")
+	}
+
 }
