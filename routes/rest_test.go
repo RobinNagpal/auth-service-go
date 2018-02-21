@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"bytes"
 	"fmt"
+	"github.com/RobinNagpal/auth-service-go/utils"
 )
 
 func TestSignup(t *testing.T) {
@@ -24,7 +25,7 @@ func TestSignup(t *testing.T) {
 
 	body := res.Body.String()
 
-	apiError := BadRequestError{}
+	apiError := utils.BadInputError{}
 	json.NewDecoder(bytes.NewBuffer([]byte(body))).Decode(&apiError)
 
 	if apiError.Code != "INVALID_INPUT" {
@@ -34,7 +35,7 @@ func TestSignup(t *testing.T) {
 		t.Error("Not Valid number of field errors")
 	}
 
-	emailError := FieldError{
+	emailError := utils.FieldError{
 		FieldName: "email",
 		Code:      "INVALID_EMAIL",
 	}
@@ -42,7 +43,7 @@ func TestSignup(t *testing.T) {
 		t.Error("Not valid field email error")
 	}
 
-	dobError := FieldError{
+	dobError := utils.FieldError{
 		FieldName: "dateOfBirth",
 		Code:      "REQUIRED_FIELD",
 	}

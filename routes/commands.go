@@ -15,14 +15,3 @@ type loginCommand struct {
 	email    string `validate:"nonzero"`
 	password string `validate:"nonzero"`
 }
-
-type FieldError struct {
-	FieldName string `json:"fieldName"`
-	Code      string `json:"code"`
-}
-
-type BadRequestError struct {
-	Code    string
-	Message string
-	Details []FieldError
-}
